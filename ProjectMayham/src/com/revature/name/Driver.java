@@ -1,6 +1,7 @@
 package com.revature.name;
 
-import com.revature.bean.Person; //<-- Fully Qualified Class Name
+import com.revature.bean.Person;
+import com.revature.staticfun.FunWithStatic; //<-- Fully Qualified Class Name
 
 public class Driver {
 	//single line comment
@@ -16,6 +17,7 @@ public class Driver {
 	 * constants - ALL_CAPS_LOLZ
 	 */
 	//Main method - serves as the entry point for an application
+	@SuppressWarnings("static-access")
 	public static void main(String [] args) {
 		//public- access modifiers errbody can "see" it
 		//static- belongs to class, no object needed
@@ -41,7 +43,22 @@ public class Driver {
 		Person q= new Person("BobPam", 81, 27);
 		System.out.println(q);
 		
-		
-		
+		FunWithStatic fws = new FunWithStatic();
+		fws.nonStaticMethod();
+		FunWithStatic.staticMethod();
+		fws.staticMethod();
 	}
 }
+
+
+ final class finalthings{ // can't have child classes
+	 final int b; // must be set in constructor
+	 finalthings(){
+		 b = 5;
+	 }
+	 final int a = 4; //set in the class, could easily be static
+	 static final int c = 6; //Effectively a constant
+		final int getA() {//can't be overridden by child classes
+		 return a;
+	 }
+ }
