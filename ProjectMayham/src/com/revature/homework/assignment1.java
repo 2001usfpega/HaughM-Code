@@ -1,5 +1,7 @@
 package com.revature.homework;
 
+import java.util.ArrayList;
+
 public class assignment1 {
 
 	public static void main(String[] args) {
@@ -37,9 +39,10 @@ public class assignment1 {
 				System.out.println("Is " + i + " even? " + isEven(i));
 			}
 		} while (false);
+		palendromes();
 		primes();
 		do {
-			int[] input = array1To100();
+			Integer[] input = array1To100();
 			double d = 54.28d;
 			for (int i : input) {
 				System.out.println("Min of this pair: " + min(i, d));
@@ -47,6 +50,7 @@ public class assignment1 {
 		} while (false);
 		evens();
 		pyramid();
+		
 	}
 
 	// 1
@@ -112,10 +116,10 @@ public class assignment1 {
 	}
 
 	// 5
-	static String getSubstring(String input, int stopIndex) {
+	static String getSubstring(String str, int idx) {
 		String out = "";
-		for (int i = 0; i < stopIndex; i++) {
-			out += input.charAt(i);
+		for (int i = 0; i < idx; i++) {
+			out += str.charAt(i);
 		}
 		return out;
 	}
@@ -130,13 +134,24 @@ public class assignment1 {
 		return (product * denominator) == numerator;
 	}
 	// 7
-
+	//com.revature.homework.employee
 	// 8
+	static void palendromes(){
+		PalendromeSeperator p = new PalendromeSeperator();
+		for(String s: p.getInput()){
+			System.out.print(s+", ");
+		}
+		System.out.println();
+		for(String s: p.getPalendromes()){
+			System.out.print(s+", ");
+		}
+		System.out.println();
+	}
 
 	// 9
 
-	static int[] array1To100() {
-		int[] out = new int[100];
+	static Integer[] array1To100() {
+		Integer[] out = new Integer[100];
 		for (int i = 0; i < 100; i++) {
 			out[i] = i + 1;
 		}
@@ -147,18 +162,21 @@ public class assignment1 {
 		primes(array1To100());
 	}
 
-	static void primes(int[] input) {
-		for (int i : input) {
-			int c = 0;
-			for (int d : array1To100()) {
-				if (i % d == 0) {
-					c++;
+	static ArrayList<Integer> primes(Integer[] integers) {
+		ArrayList<Integer> out = new ArrayList<Integer>();
+		next: for (int i : integers) {
+			if(i==1) {  // one isn't considered prime
+				continue;
+			}
+			for (int n = 2; n<=Math.sqrt(i);n++) {  // for i/n=r where n > sqrt(i)  r is always either not an integer or >Sqrt(I)
+				if (i % n == 0) {
+					continue next;
 				}
 			}
-			if (c == 2) {
-				System.out.println(i);
-			}
+			System.out.println(i);
+			out.add(i);
 		}
+		return out;
 	}
 
 	// 10
@@ -166,13 +184,16 @@ public class assignment1 {
 		return n1.doubleValue() > n2.doubleValue() ? n2 : n1;
 	}
 	// 11
-
+	static void getFromOtherPackage(){
+		System.out.println(com.revature.homework2.Question11Holder.float1);
+		System.out.println(com.revature.homework2.Question11Holder.getFloat2());
+	}
 	// 12
 	static void evens() {
 		evens(array1To100());
 	}
 
-	static void evens(int[] input) {
+	static void evens(Integer[] input) {
 		for (int i : input) {
 			if (isEven(i)) {
 				System.out.println(i);
@@ -193,8 +214,87 @@ public class assignment1 {
 			System.out.println();
 		}
 	}
+	//19
+	static void ArrayListDemo(){
+		ArrayList<Integer> holder = new ArrayList<Integer>();
+		for(int i = 1; i<=10; i++){
+			holder.add(i);
+		}
+		int out = 0;
+		for(int i: holder){
+			if(isEven(i)){
+				out += i;
+			}
+		}
+		System.out.println(out);
+		out = 0;
+		for(int i: holder){
+			if(!isEven(i)){
+				out += i;
+			}
+		}
+		Integer[] temp = new Integer[10];
+		ArrayList<Integer> filter = primes(holder.toArray(temp));
+		holder.removeAll(filter);
+	}
+	
 }
-
+//8
 class PalendromeSeperator {
-
+	private ArrayList<String> palendromes = new ArrayList<String>();
+	private ArrayList<String> input = new ArrayList<String>();
+	PalendromeSeperator(){
+		String[] strings = {"karan", "madam", "tom", "civic", "radar", "jimmy", "kayak", "john",  "refer", "billy", "did"};
+		for(String s: strings) {
+			input.add(s);
+		}
+		sortPalendromes();
+	}
+	PalendromeSeperator(String [] input){
+		for(String i: input) {
+			this.input.add(i);
+		}
+		sortPalendromes();
+	}
+	PalendromeSeperator(ArrayList<String> input){
+		for(String i: input) {
+			this.input.add(i);
+		}
+		sortPalendromes();
+	}
+	ArrayList<String> getInput() {
+		return input;
+	}
+	ArrayList<String> getPalendromes() {
+		return palendromes;
+	}
+	void sortPalendromes(){
+		for(String s: input){
+			boolean isPalendrome=true;
+			for(int i = 0; i<=s.length()/2;i++){
+				if(s.charAt(i)!=s.charAt(s.length()-(i+1))) {
+					isPalendrome=false;
+					break;
+				}
+			}
+			if(isPalendrome){
+				palendromes.add(s);
+			}
+		}
+	}
+}
+//15
+class MathWhiz implements DoesMath{
+	public double addition(Number input1, Number input2){
+		return input1.doubleValue()+input2.doubleValue();
+	}
+	public double subtraction(Number input1, Number input2){
+		return input1.doubleValue()-input2.doubleValue();
+	}
+	public double multiplication(Number input1, Number input2){
+		return input1.doubleValue()*input2.doubleValue();
+	}
+	public double division(Number input1, Number input2){
+		return input1.doubleValue()/input2.doubleValue();
+	}
 }
