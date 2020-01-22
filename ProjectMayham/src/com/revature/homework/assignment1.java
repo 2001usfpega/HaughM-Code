@@ -1,5 +1,8 @@
 package com.revature.homework;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class assignment1 {
@@ -17,7 +20,9 @@ public class assignment1 {
 			}
 			System.out.println();
 		} while (false);
-		fibonacci();
+		for(int i:fibonacci()) {
+			System.out.println(i);
+		}
 		do {
 			String input = "Its going to reverse Me!";
 			System.out.println(input);
@@ -40,7 +45,10 @@ public class assignment1 {
 			}
 		} while (false);
 		palendromes();
-		primes();
+		
+		for(int i:primes()){
+			System.out.println(i);
+		}
 		do {
 			Integer[] input = array1To100();
 			double d = 54.28d;
@@ -50,7 +58,7 @@ public class assignment1 {
 		} while (false);
 		evens();
 		pyramid();
-		
+		readFromFile();
 	}
 
 	// 1
@@ -87,7 +95,6 @@ public class assignment1 {
 																		// for any length
 		int[] out = new int[toDo];
 		for (int i = 0; i < toDo; i++) {
-			System.out.println(n0); // comment out to stop displaying
 			out[i] = n0;
 			int holder = n0 + n1;
 			n0 = n1;
@@ -158,8 +165,8 @@ public class assignment1 {
 		return out;
 	}
 
-	static void primes() {
-		primes(array1To100());
+	static ArrayList<Integer> primes() {
+		return primes(array1To100());
 	}
 
 	static ArrayList<Integer> primes(Integer[] integers) {
@@ -173,7 +180,7 @@ public class assignment1 {
 					continue next;
 				}
 			}
-			System.out.println(i);
+			
 			out.add(i);
 		}
 		return out;
@@ -184,21 +191,25 @@ public class assignment1 {
 		return n1.doubleValue() > n2.doubleValue() ? n2 : n1;
 	}
 	// 11
-	static void getFromOtherPackage(){
+	static Float getFromOtherPackage(){
 		System.out.println(com.revature.homework2.Question11Holder.float1);
 		System.out.println(com.revature.homework2.Question11Holder.getFloat2());
+		return com.revature.homework2.Question11Holder.float1 + com.revature.homework2.Question11Holder.getFloat2();
 	}
 	// 12
 	static void evens() {
 		evens(array1To100());
 	}
 
-	static void evens(Integer[] input) {
+	static Integer[] evens(Integer[] input) {
+		ArrayList<Integer> output = new ArrayList<Integer>();
 		for (int i : input) {
 			if (isEven(i)) {
-				System.out.println(i);
+				output.add(i);
 			}
 		}
+		Integer[] out = new Integer[output.size()];
+		return output.toArray(out);
 	}
 	//13
 	
@@ -214,8 +225,26 @@ public class assignment1 {
 			System.out.println();
 		}
 	}
+	//17
+	static double simpleInterest() throws NumberFormatException, IOException {
+		BufferedReader reader =  new BufferedReader(new InputStreamReader(System.in)); 
+		double a = 0;
+		double b = 0;
+		double c = 0;
+		System.out.println("Input Principle:");
+		a = Double.valueOf(reader.readLine());
+		System.out.println();
+		System.out.println("Input rate of return as a decimal value (not percentage):");
+		b = Double.valueOf(reader.readLine());
+		System.out.println();
+		System.out.println("Input Years:");
+		c = Double.valueOf(reader.readLine());
+		System.out.println();
+		System.out.println(a*b*c);
+		return a*b*c;
+	}
 	//19
-	static void ArrayListDemo(){
+	static void arrayListDemo(){
 		ArrayList<Integer> holder = new ArrayList<Integer>();
 		for(int i = 1; i<=10; i++){
 			holder.add(i);
@@ -237,64 +266,21 @@ public class assignment1 {
 		ArrayList<Integer> filter = primes(holder.toArray(temp));
 		holder.removeAll(filter);
 	}
-	
-}
-//8
-class PalendromeSeperator {
-	private ArrayList<String> palendromes = new ArrayList<String>();
-	private ArrayList<String> input = new ArrayList<String>();
-	PalendromeSeperator(){
-		String[] strings = {"karan", "madam", "tom", "civic", "radar", "jimmy", "kayak", "john",  "refer", "billy", "did"};
-		for(String s: strings) {
-			input.add(s);
-		}
-		sortPalendromes();
-	}
-	PalendromeSeperator(String [] input){
-		for(String i: input) {
-			this.input.add(i);
-		}
-		sortPalendromes();
-	}
-	PalendromeSeperator(ArrayList<String> input){
-		for(String i: input) {
-			this.input.add(i);
-		}
-		sortPalendromes();
-	}
-	ArrayList<String> getInput() {
-		return input;
-	}
-	ArrayList<String> getPalendromes() {
-		return palendromes;
-	}
-	void sortPalendromes(){
-		for(String s: input){
-			boolean isPalendrome=true;
-			for(int i = 0; i<=s.length()/2;i++){
-				if(s.charAt(i)!=s.charAt(s.length()-(i+1))) {
-					isPalendrome=false;
-					break;
-				}
-			}
-			if(isPalendrome){
-				palendromes.add(s);
-			}
-		}
+	//20
+	static String [][] readFromFile(){
+		String input = "replace:withfile:21:state";  // replace me with that file IO!
+			String holder []=input.split("/R");
+			String [][] output = new String [holder.length][4];
+			 for(int i = 0; i< holder.length; i++){
+				 for(int y = 0; y <  4 ;y++){
+					 output[i][y] =  holder[i].split(":")[y];
+				 }
+			 }
+			 for(String[] s: output){
+				 System.out.println("Name: "+s[0]+" "+s[1]+" age: "+s[2]+" state: "+s[3]);
+			 }
+		return output;
 	}
 }
-//15
-class MathWhiz implements DoesMath{
-	public double addition(Number input1, Number input2){
-		return input1.doubleValue()+input2.doubleValue();
-	}
-	public double subtraction(Number input1, Number input2){
-		return input1.doubleValue()-input2.doubleValue();
-	}
-	public double multiplication(Number input1, Number input2){
-		return input1.doubleValue()*input2.doubleValue();
-	}
-	public double division(Number input1, Number input2){
-		return input1.doubleValue()/input2.doubleValue();
-	}
-}
+
+
