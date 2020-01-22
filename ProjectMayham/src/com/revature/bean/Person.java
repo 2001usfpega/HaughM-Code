@@ -1,5 +1,7 @@
 package com.revature.bean;
 
+import com.revature.exceptions.IncreaseByNegativeNumberException;
+
 public class Person {
 /*Code Block- defined by {}  {Things between}
  * static code block - runs once when class is used by compiler
@@ -28,7 +30,12 @@ public class Person {
 	public Person() {
 		//super(); implicitly there
 	}
-	
+	public void increaseAgeBy(int i){
+		if(i<0){
+			throw new IncreaseByNegativeNumberException();
+		}
+		age += i;
+	}
 	public void setName(String name) {
 		this.name=name;
 	}

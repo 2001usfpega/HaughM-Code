@@ -1,18 +1,18 @@
 package com.revature.homework;
 
-import static org.junit.Assert.*;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-//assignment1.
-public class assignment1Test {
+import org.junit.jupiter.api.Test;
 
+class Homework1tester {
 	@Test
 	public void testBubbleSort() {
 		int [] input = { 1, 0, 5, 6, 3, 2, 3, 7, 9, 8, 4};
 		int [] expected = { 0, 1, 2, 3, 3, 4, 5, 6, 7, 8, 9};
 		int [] output = assignment1.bubbleSort(input);
 		assertArrayEquals(expected, output);
+		
 	}
 
 	@Test
@@ -49,8 +49,8 @@ public class assignment1Test {
 
 	@Test
 	public void testDividesCleanly() {
-		assertEquals(false, assignment1.dividesCleanly(3,2));
-		assertEquals(false, assignment1.dividesCleanly(2,2));
+		assertFalse(assignment1.dividesCleanly(3,2));
+		assertTrue(assignment1.dividesCleanly(2,2));
 	}
 
 	@Test
@@ -83,12 +83,13 @@ public class assignment1Test {
 
 	@Test
 	public void testSimpleInterest() {
-		fail("Not yet implemented");
+		assertEquals(300d, assignment1.simpleInterest(3000, .01, 10));
 	}
 
 	@Test
 	public void testArrayListDemo() {
-		fail("Not yet implemented");
+		Integer[] expected = {1,4,6,8,9,10};
+		assertArrayEquals(expected, assignment1.arrayListDemo().toArray());
 	}
 
 }

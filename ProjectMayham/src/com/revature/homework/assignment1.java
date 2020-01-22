@@ -59,6 +59,7 @@ public class assignment1 {
 		evens();
 		pyramid();
 		readFromFile();
+		arrayListDemo();
 	}
 
 	// 1
@@ -172,7 +173,7 @@ public class assignment1 {
 	static ArrayList<Integer> primes(Integer[] integers) {
 		ArrayList<Integer> out = new ArrayList<Integer>();
 		next: for (int i : integers) {
-			if(i==1) {  // one isn't considered prime
+			if(i>-2&&i<2) {  // one, zero and -1 isn't considered prime
 				continue;
 			}
 			for (int n = 2; n<=Math.sqrt(i);n++) {  // for i/n=r where n > sqrt(i)  r is always either not an integer or >Sqrt(I)
@@ -240,12 +241,18 @@ public class assignment1 {
 		System.out.println("Input Years:");
 		c = Double.valueOf(reader.readLine());
 		System.out.println();
-		System.out.println(a*b*c);
+		Double out = simpleInterest(a, b, c);
+		System.out.println(out);
+		return out;
+	}
+	static double simpleInterest(double a, double b, double c){
 		return a*b*c;
 	}
+	
 	//19
-	static void arrayListDemo(){
+	static ArrayList<Integer> arrayListDemo(){
 		ArrayList<Integer> holder = new ArrayList<Integer>();
+		
 		for(int i = 1; i<=10; i++){
 			holder.add(i);
 		}
@@ -262,9 +269,14 @@ public class assignment1 {
 				out += i;
 			}
 		}
+		System.out.println(out);
 		Integer[] temp = new Integer[10];
 		ArrayList<Integer> filter = primes(holder.toArray(temp));
 		holder.removeAll(filter);
+		for(Integer i: holder) {
+			System.out.println(i);
+		}
+		return holder;
 	}
 	//20
 	static String [][] readFromFile(){

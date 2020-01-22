@@ -1,4 +1,4 @@
-package com.revature.name;
+package com.revature.driver;
 
 import com.revature.bean.Person;
 import com.revature.staticfun.FunWithStatic; //<-- Fully Qualified Class Name
@@ -35,11 +35,14 @@ public class Driver {
 		 * Static variables- belong to class/all instances
 		 * Instance methods- behavior related to a specific object
 		 * Static methods - relative to the entire class
-		 * Constructors- instantiates the class using the keyword "new"
+		 * Constructors- instantiates the 
+		 * class using the keyword "new"
 		 */
 		Person p = new Person();
 		p.setName("Jim");
 		System.out.println(p);
+		p.increaseAgeBy(3);
+		System.out.println(p.getAge());
 		Person q= new Person("BobPam", 81, 27);
 		System.out.println(q);
 		
