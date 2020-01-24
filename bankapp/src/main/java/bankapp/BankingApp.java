@@ -1,10 +1,10 @@
-package com.revature.project0;
+package bankapp;
 
 public class BankingApp {
 	//UserObject currentUser;
 	String userDatabaseLoaction = "";
-	String accountDatabase location
-	//DatabaseObject database  //live database in memory
+	String accountDatabaseLocation = "";
+	//DatabasesObject databases  //live databases in memory
 	
 	
 /*	

@@ -1,4 +1,4 @@
-package com.revature.homework2;
+package com.revature.homework;
 
 public class InputLenghtFinder {
 	public static void main(String [] args) {

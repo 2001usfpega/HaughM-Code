@@ -1,14 +1,13 @@
 package com.revature.homework;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.io.*;
 
 public class assignment1 {
 
 	public static void main(String[] args) {
-		do {
+		do {// 1
 			int[] input = { 1, 0, 5, 6, 3, 2, 3, 7, 9, 8, 4 };
 			int[] out = bubbleSort(input);
 			for (int i : input) {
@@ -20,46 +19,110 @@ public class assignment1 {
 			}
 			System.out.println();
 		} while (false);
-		for(int i:fibonacci()) {
+		for (int i : fibonacci()) {// 2
 			System.out.println(i);
 		}
-		do {
+		do {// 3
 			String input = "Its going to reverse Me!";
 			System.out.println(input);
 			System.out.println(reverseString(input));
 		} while (false);
-		do {
+		do {// 4
 			int input = 5;
 			System.out.println("Nfactorial of " + input);
 			System.out.println(nFactorial(input));
 		} while (false);
-		do {
+		do {// 5
 			String input1 = "The quick brown fox jumped over the lazy dog.";
 			int input2 = 15;
 			System.out.println("first " + input2 + " char from: \"" + input1 + "\"");
 			System.out.println(getSubstring(input1, input2));
 		} while (false);
-		do {
+		do {// 6
 			for (int i = 1; i <= 20; i++) {
 				System.out.println("Is " + i + " even? " + isEven(i));
 			}
 		} while (false);
-		palendromes();
-		
-		for(int i:primes()){
+		do {// 7
+			ArrayList<Employee> ar = new ArrayList<Employee>();
+			ar.add(new Employee("Alice", "Packing", 30));
+			ar.add(new Employee("Charlie", "Unpacking", 30));
+			ar.add(new Employee("Bob", "Packing", 25));
+			ar.add(new Employee("Alice", "Unpacking", 30));
+			ar.add(new Employee("Charlie", "Packing", 30));
+			ar.add(new Employee("Bob", "Driver", 50));
+			System.out.println("Unsorted");
+			for (int i = 0; i < ar.size(); i++)
+				System.out.println(ar.get(i));
+
+			Collections.sort(ar, new AgeCompareror());
+
+			System.out.println("\nSorted by age");
+			for (int i = 0; i < ar.size(); i++) {
+				System.out.println(ar.get(i));
+			}
+			Collections.sort(ar, new NameCompareror());
+
+			System.out.println("\nSorted by name");
+			for (int i = 0; i < ar.size(); i++) {
+				System.out.println(ar.get(i));
+			}
+			Collections.sort(ar, new DepartmentCompareror());
+
+			System.out.println("\nSorted by departmente");
+			for (int i = 0; i < ar.size(); i++) {
+				System.out.println(ar.get(i));
+			}
+		} while (false);// 7
+		palendromes(); // 8
+		for (int i : primes()) {// 9
 			System.out.println(i);
 		}
-		do {
+		do {// 10
 			Integer[] input = array1To100();
 			double d = 54.28d;
 			for (int i : input) {
 				System.out.println("Min of this pair: " + min(i, d));
 			}
 		} while (false);
-		evens();
-		pyramid();
-		readFromFile();
-		arrayListDemo();
+		System.out.println("sum of numbers retreved from other package: " + getFromOtherPackage());// 11
+		evens();// 12
+		pyramid();// 13
+		do { //14
+			SwitchDemonstrator s = new SwitchDemonstrator(1, 245.4);
+			s = new SwitchDemonstrator(2, 245.4);
+			s = new SwitchDemonstrator(3, 245.4);
+			for(String out:s.outputStringArray){
+				System.out.println(out);
+			}
+		} while(false);
+		do {//15
+			MathWhiz m = new MathWhiz();
+			double a = 1245.2;
+			int g = 3;
+			System.out.println(a+" + "+g+ " = "+m.addition(a, g));
+			System.out.println(a+" - "+g+ " = "+m.subtraction(a, g));
+			System.out.println(a+" * "+g+ " = "+m.multiplication(a, g));
+			System.out.println(a+" / "+g+ " = "+m.division(a, g));
+		}while(false);
+		String [] in = {"Roll Tide"};
+		InputLenghtFinder.main(in);//16
+		try {// 17
+			simpleInterest();
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		do{
+			UppercaseChecker u = new UppercaseChecker();
+			System.out.println(u.changeToCase("Wahh"));
+			System.out.println(u.hasCase("foo"));
+			System.out.println(u.hasCase("FOO"));
+			System.out.println(u.toIntAndModify("300"));
+		}while(false);// 18
+		arrayListDemo();// 19
+		readFromFile();// 20
 	}
 
 	// 1
@@ -141,17 +204,18 @@ public class assignment1 {
 		int product = numerator / denominator;
 		return (product * denominator) == numerator;
 	}
+
 	// 7
-	//com.revature.homework.employee
+	// com.revature.homework.employee
 	// 8
-	static void palendromes(){
+	static void palendromes() {
 		PalendromeSeperator p = new PalendromeSeperator();
-		for(String s: p.getInput()){
-			System.out.print(s+", ");
+		for (String s : p.getInput()) {
+			System.out.print(s + ", ");
 		}
 		System.out.println();
-		for(String s: p.getPalendromes()){
-			System.out.print(s+", ");
+		for (String s : p.getPalendromes()) {
+			System.out.print(s + ", ");
 		}
 		System.out.println();
 	}
@@ -173,15 +237,16 @@ public class assignment1 {
 	static ArrayList<Integer> primes(Integer[] integers) {
 		ArrayList<Integer> out = new ArrayList<Integer>();
 		next: for (int i : integers) {
-			if(i>-2&&i<2) {  // one, zero and -1 isn't considered prime
+			if (i > -2 && i < 2) { // one, zero and -1 isn't considered prime
 				continue;
 			}
-			for (int n = 2; n<=Math.sqrt(i);n++) {  // for i/n=r where n > sqrt(i)  r is always either not an integer or >Sqrt(I)
+			for (int n = 2; n <= Math.sqrt(i); n++) { // for i/n=r where n > sqrt(i) r is always either not an integer
+														// or >Sqrt(I)
 				if (i % n == 0) {
 					continue next;
 				}
 			}
-			
+
 			out.add(i);
 		}
 		return out;
@@ -191,12 +256,14 @@ public class assignment1 {
 	static Number min(Number n1, Number n2) {
 		return n1.doubleValue() > n2.doubleValue() ? n2 : n1;
 	}
+
 	// 11
-	static Float getFromOtherPackage(){
+	static Float getFromOtherPackage() {
 		System.out.println(com.revature.homework2.Question11Holder.float1);
 		System.out.println(com.revature.homework2.Question11Holder.getFloat2());
 		return com.revature.homework2.Question11Holder.float1 + com.revature.homework2.Question11Holder.getFloat2();
 	}
+
 	// 12
 	static void evens() {
 		evens(array1To100());
@@ -212,23 +279,25 @@ public class assignment1 {
 		Integer[] out = new Integer[output.size()];
 		return output.toArray(out);
 	}
-	//13
-	
-	static void pyramid(){
+	// 13
+
+	static void pyramid() {
 		pyramid(false, 4);
 	}
-	static void pyramid(boolean nextIsOne, int levels){
-		for(int y = 1; y<= levels; y++){
-			for(int x = 1;x<=y;x++) {
-				System.out.print(nextIsOne?1+" ":0+" ");
-				nextIsOne=!nextIsOne;
+
+	static void pyramid(boolean nextIsOne, int levels) {
+		for (int y = 1; y <= levels; y++) {
+			for (int x = 1; x <= y; x++) {
+				System.out.print(nextIsOne ? 1 + " " : 0 + " ");
+				nextIsOne = !nextIsOne;
 			}
 			System.out.println();
 		}
 	}
-	//17
+
+	// 17
 	static double simpleInterest() throws NumberFormatException, IOException {
-		BufferedReader reader =  new BufferedReader(new InputStreamReader(System.in)); 
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		double a = 0;
 		double b = 0;
 		double c = 0;
@@ -245,27 +314,28 @@ public class assignment1 {
 		System.out.println(out);
 		return out;
 	}
-	static double simpleInterest(double a, double b, double c){
-		return a*b*c;
+
+	static double simpleInterest(double a, double b, double c) {
+		return a * b * c;
 	}
-	
-	//19
-	static ArrayList<Integer> arrayListDemo(){
+
+	// 19
+	static ArrayList<Integer> arrayListDemo() {
 		ArrayList<Integer> holder = new ArrayList<Integer>();
-		
-		for(int i = 1; i<=10; i++){
+
+		for (int i = 1; i <= 10; i++) {
 			holder.add(i);
 		}
 		int out = 0;
-		for(int i: holder){
-			if(isEven(i)){
+		for (int i : holder) {
+			if (isEven(i)) {
 				out += i;
 			}
 		}
 		System.out.println(out);
 		out = 0;
-		for(int i: holder){
-			if(!isEven(i)){
+		for (int i : holder) {
+			if (!isEven(i)) {
 				out += i;
 			}
 		}
@@ -273,26 +343,37 @@ public class assignment1 {
 		Integer[] temp = new Integer[10];
 		ArrayList<Integer> filter = primes(holder.toArray(temp));
 		holder.removeAll(filter);
-		for(Integer i: holder) {
+		for (Integer i : holder) {
 			System.out.println(i);
 		}
 		return holder;
 	}
-	//20
-	static String [][] readFromFile(){
-		String input = "replace:withfile:21:state";  // replace me with that file IO!
-			String holder []=input.split("/R");
-			String [][] output = new String [holder.length][4];
-			 for(int i = 0; i< holder.length; i++){
-				 for(int y = 0; y <  4 ;y++){
-					 output[i][y] =  holder[i].split(":")[y];
-				 }
-			 }
-			 for(String[] s: output){
-				 System.out.println("Name: "+s[0]+" "+s[1]+" age: "+s[2]+" state: "+s[3]);
-			 }
+
+	// 20
+	static ArrayList<String[]> readFromFile() {
+		InputStream in = null;
+		File file = new File("Homework1Q20Input.txt");
+		StringBuilder sb = new StringBuilder();
+		ArrayList<String[]> output = new ArrayList<String[]>();
+		try {
+			in = new FileInputStream(file);
+			int b = 0;
+			while ((b = in.read()) != -1) {
+				char c = (char) b;
+				sb.append(c);
+			}
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println(file.getAbsolutePath());
+		}
+		for (String s : sb.toString().split("\r\n")) {
+			output.add(s.split(":"));
+		}
+		// replace me with that file IO!
+		for (String[] s : output) {
+			System.out.println("Name: " + s[0] + " " + s[1] + " age: " + s[2] + " state: " + s[3]);
+		}
 		return output;
 	}
 }
-
-

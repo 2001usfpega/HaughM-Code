@@ -3,6 +3,8 @@ package com.revature.homework;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 class Homework1tester {
@@ -43,8 +45,8 @@ class Homework1tester {
 
 	@Test
 	public void testIsEven() {
-		assertEquals(false, assignment1.isEven(3));
-		assertEquals(true, assignment1.isEven(2));
+		assertFalse(assignment1.isEven(3));
+		assertTrue(assignment1.isEven(2));
 	}
 
 	@Test
@@ -91,5 +93,22 @@ class Homework1tester {
 		Integer[] expected = {1,4,6,8,9,10};
 		assertArrayEquals(expected, assignment1.arrayListDemo().toArray());
 	}
-
+	
+	@Test
+	public void testReadFromFile() {
+		ArrayList<String[]> expecteds = new ArrayList<String[]>();
+		String [] a={"Mickey","Mouse","35","Arizona"};
+		String [] b={"Hulk","Hogan","50","Virginia"};
+		String [] c={"Roger","Rabbit","22","California"};
+		String [] d={"Wonder","Woman","18","Montana"};
+		expecteds.add(a);
+		expecteds.add(b);
+		expecteds.add(c);
+		expecteds.add(d);
+		ArrayList<String[]> actuals = assignment1.readFromFile();
+		assertArrayEquals(expecteds.get(0), actuals.get(0));
+		assertArrayEquals(expecteds.get(1), actuals.get(1));
+		assertArrayEquals(expecteds.get(2), actuals.get(2));
+		assertArrayEquals(expecteds.get(3), actuals.get(3));
+	}
 }
