@@ -3,6 +3,7 @@ package com.revature.homework;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.*;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -81,7 +82,22 @@ class Homework1tester {
 		assertArrayEquals(expecteds, assignment1.evens(input));
 	}
 
+	@Test
+	public void testStringCount(){
+		
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(buffer));
 
+		String[] in = {"weee"};
+		InputLenghtFinder.main(in);
+
+		System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
+		
+		String content = buffer.toString();
+		buffer.reset();
+		
+		assertEquals("4\r\n", content);
+	}
 
 	@Test
 	public void testSimpleInterest() {

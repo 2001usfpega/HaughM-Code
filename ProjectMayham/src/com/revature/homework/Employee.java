@@ -33,6 +33,15 @@ public class Employee{
 	public String toString(){
 		return name+" "+department+" "+age;
 	}
-	
+	@Override
+	public boolean equals(Object o){
+		if(o.getClass() == this.getClass()){
+			Employee e =(Employee) o;
+			if(this.age == e.getAge()&&this.name == e.getName()&&this.department==e.getDepartment()){
+				return true;
+			}
+		}
+		return false;
+		}
 }
 

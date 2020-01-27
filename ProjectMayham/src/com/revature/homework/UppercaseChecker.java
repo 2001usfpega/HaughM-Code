@@ -5,19 +5,24 @@ import java.util.regex.Pattern;
 public class UppercaseChecker extends CaseModifier {
 
 	@Override
-	boolean hasCase(String input) {
-		return Pattern.matches("[A-Z]", input);
+	public boolean hasCase(String input) {
+		for(char c: input.toCharArray()){
+			if(Pattern.matches("[A-Z]", ""+c)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
-	String changeToCase(String input) {
+	public String changeToCase(String input) {
 		return input.toUpperCase();
 	}
 
 	@Override
-	int toIntAndModify(String input) {
+	public int toIntAndModify(String input) {
 		int output = 10;
-		output += Integer.getInteger(input, 0);
+		output += Integer.parseInt(input);
 		return output;
 	}
 

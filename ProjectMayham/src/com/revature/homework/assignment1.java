@@ -69,7 +69,7 @@ public class assignment1 {
 			}
 			Collections.sort(ar, new DepartmentCompareror());
 
-			System.out.println("\nSorted by departmente");
+			System.out.println("\nSorted by department");
 			for (int i = 0; i < ar.size(); i++) {
 				System.out.println(ar.get(i));
 			}
@@ -105,7 +105,7 @@ public class assignment1 {
 			System.out.println(a+" * "+g+ " = "+m.multiplication(a, g));
 			System.out.println(a+" / "+g+ " = "+m.division(a, g));
 		}while(false);
-		String [] in = {"Roll Tide"};
+		String [] in = {"weee"};
 		InputLenghtFinder.main(in);//16
 		try {// 17
 			simpleInterest();
