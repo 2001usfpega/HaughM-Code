@@ -7,8 +7,8 @@ public interface UserDAO {
     List<User> findAll();
     List<User> findById(int ... id);
     List<User> findByName(String ... names);
-    boolean insertUser(User user);
     boolean updateUser(User user);
     boolean deleteUser(User user);
+	boolean insertUser(String username, String password, String fullname, String Type);
 
 }

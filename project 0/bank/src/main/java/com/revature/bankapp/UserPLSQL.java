@@ -122,46 +122,41 @@ public class UserPLSQL implements UserDAO {
 	}
 
 	@Override
-	public boolean insertUser(User user) {
+	public boolean insertUser(String username,String password, String fullname, String Type) {
 		try {
 			Connection conn = DriverManager.getConnection(url, username, password);
-			String sql = "Select * from userstable where username = '?'";
+			String sql = "insert into userstable (username, pword, fullname, type) values('?','?','?','?')";
 			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			ps.setString(1, user.getUsername());
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ps.setString(3, fullname);
+			ps.setString(4, Type);
 			ps.execute();
-			ResultSet rs =  ps.getResultSet();
-			if(rs.next()){
-				sql = "Update userstable set pword='?', fullname= '?' where username = ?";
-				ps.close();
-				ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-				ps.setString(1, user.getPassword());
-				ps.setString(2, user.getFullName());
-				ps.setString(3, user.getUsername());
-				ps.execute();
-			}else {
-				sql = "insert into userstable (username, pword, fullname, type) values('?','?','?','?')";
-				ps.close();
-				ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-				ps.setString(1, user.getUsername ());
-				ps.setString(2, user.getPassword());
-				ps.setString(3, user.getFullName());
-				ps.setString(4, user.getType());
-				ps.execute();
-			}
+		
 			ps.close();
 			conn.commit();
 			conn.close();
 			return true;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
 				return false;
 			}
 	}
 
 	@Override
 	public boolean updateUser(User user) {
-		return insertUser(user);
+		try {
+			Connection conn = DriverManager.getConnection(url, username, password);
+			String sql = "Update userstable set pword='?', fullname= '?' where username = ?";
+			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			ps.setString(1, user.getPassword());
+			ps.setString(2, user.getFullName());
+			ps.setString(3, user.getUsername());
+			ps.execute();
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override
@@ -177,8 +172,6 @@ public class UserPLSQL implements UserDAO {
 			conn.close();
 			return true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 				return false;
 			}
 	}

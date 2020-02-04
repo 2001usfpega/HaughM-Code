@@ -80,7 +80,7 @@ public class BankingApp {
 				}else {
 					System.out.println("I'm sorry, the username/password is incorrect.");
 				}
-			} else if(userInput.equals("Admin") || userInput.equals("Admin") || userInput.equals("3") || userInput.equals("3.")) {
+			} else if(userInput.equals("Admin") || userInput.equals("admin") || userInput.equals("3") || userInput.equals("3.")) {
 				System.out.println("Hello Admin, let's get you signed in.");
 				//String userName;
 				//String passWord;
@@ -406,7 +406,8 @@ public class BankingApp {
 		System.out.println("\n Please users full name:");
 		String fName= bankScan.next();
 		System.out.println("\n Please input user type as Admin, Employee, or Client");
-		switch(bankScan.next()){
+		String swtch = bankScan.next();
+		switch(swtch){
 		case "Admin":
 		case "admin":
 			Databases.getDatabases().makeSU(uName, pWord, fName);
@@ -415,7 +416,8 @@ public class BankingApp {
 		case "employee":
 			Databases.getDatabases().makeEmployee(uName, pWord, fName);
 			break;
-		default:
+		case "client":
+		case "Client":
 			Databases.getDatabases().makeClient(uName, pWord, fName);
 			break;
 		}

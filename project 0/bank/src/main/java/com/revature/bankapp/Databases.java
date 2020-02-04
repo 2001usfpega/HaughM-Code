@@ -23,9 +23,7 @@ public class Databases {
 	}
 	
 	
-	private final String AccountFile = "Accounts.txt";
 	public  HashMap<Integer, Account> Accountlist = new HashMap<Integer, Account>();
-	private final String UserFile = "Users.txt";
 	public HashMap<String, User> Userlist = new HashMap<String, User>();
 
 	// write method
@@ -170,8 +168,10 @@ public class Databases {
 
 	boolean makeClient(String username, String password, String fullName) {
 		if (!Userlist.containsKey(username)) {
-			Userlist.put(username, new Client(username, password, fullName));
-			writeFiles();
+			if(UserPLSQL.getSQL().insertUser(username, password, fullName, "customer")) {
+				Userlist.put(username, UserPLSQL.getSQL().findByName(username).get(0));
+			}
+			
 			System.out.println("\r\nClient profile created successfully");
 			return true;
 		}
@@ -181,10 +181,11 @@ public class Databases {
 
 	boolean makeEmployee(String username, String password, String fullName) {// should be exposed only to superusers
 		if (!Userlist.containsKey(username)) {
-			Userlist.put(username, new Employee(username, password, fullName));
-			writeFiles();
+			if(UserPLSQL.getSQL().insertUser(username, password, fullName, "employee")) {
+				Userlist.put(username, UserPLSQL.getSQL().findByName(username).get(0));
+			}
+			
 			System.out.println("\r\nEmployee profile created sucsesfuly");
-			writeFiles();
 			return true;
 		}
 		System.out.println("\r\nUsername alredy exists.");
@@ -193,9 +194,10 @@ public class Databases {
 
 	boolean makeSU(String username, String password, String fullName) {// should be exposed only to superusers
 		if (!Userlist.containsKey(username)) {
-			Userlist.put(username, new SuperUser(username, password, fullName));
+			if(UserPLSQL.getSQL().insertUser(username, password, fullName, "admin")) {
+				Userlist.put(username, UserPLSQL.getSQL().findByName(username).get(0));
+			}
 			System.out.println("\r\nAdministrator profile created successfully");
-			writeFiles();
 			return true;
 		}
 		System.out.println("\r\nUsername already exists.");
