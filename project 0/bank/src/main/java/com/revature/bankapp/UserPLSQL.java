@@ -21,7 +21,7 @@ public class UserPLSQL implements UserDAO {
 
 		
 	public static UserPLSQL getSQL() {
-		if(single.equals(null)){
+		if(!UserPLSQL.class.isInstance(single)){
 			single = new UserPLSQL();
 		}
 		return single;
@@ -32,7 +32,7 @@ public class UserPLSQL implements UserDAO {
 		try{
 			Connection conn = DriverManager.getConnection(url, username, password);
 			String sql = "Select * from userstable";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			ps.execute();
 			ResultSet rs =  ps.getResultSet();
 			do {
@@ -64,12 +64,11 @@ public class UserPLSQL implements UserDAO {
 		Connection conn = DriverManager.getConnection(url, username, password);
 		for(int i: id) {
 			String sql = "Select * from userstable where user_id = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			ps.setInt(1, i);
 			ps.execute();
 			ResultSet rs =  ps.getResultSet();
-				do {
-				rs.next();
+				while(rs.next()) {
 				switch(rs.getString("usertype")){
 				case "admin":
 					out.add(new SuperUser(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"), rs.getInt("user_id")));
@@ -81,7 +80,7 @@ public class UserPLSQL implements UserDAO {
 					out.add(new Employee(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"), rs.getInt("user_id")));
 				break;
 					}
-				}while(!rs.isLast());
+				}
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -97,12 +96,11 @@ public class UserPLSQL implements UserDAO {
 		Connection conn = DriverManager.getConnection(url, username, password);
 		for(String s: names) {
 			String sql = "Select * from userstable where username = '?'";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			ps.setString(1, s);
 			ps.execute();
 			ResultSet rs =  ps.getResultSet();
-				do {
-				rs.next();
+				while(rs.next()){
 				switch(rs.getString("usertype")){
 				case "admin":
 					out.add(new SuperUser(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"), rs.getInt("user_id")));
@@ -114,12 +112,12 @@ public class UserPLSQL implements UserDAO {
 					out.add(new Employee(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"), rs.getInt("user_id")));
 				break;
 					}
-				}while(!rs.isLast());
 				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return out;
 	}
 
@@ -128,14 +126,14 @@ public class UserPLSQL implements UserDAO {
 		try {
 			Connection conn = DriverManager.getConnection(url, username, password);
 			String sql = "Select * from userstable where username = '?'";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			ps.setString(1, user.getUsername());
 			ps.execute();
 			ResultSet rs =  ps.getResultSet();
-			if(rs.last()){
+			if(rs.next()){
 				sql = "Update userstable set pword='?', fullname= '?' where username = ?";
 				ps.close();
-				ps = conn.prepareStatement(sql);
+				ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 				ps.setString(1, user.getPassword());
 				ps.setString(2, user.getFullName());
 				ps.setString(3, user.getUsername());
@@ -143,7 +141,7 @@ public class UserPLSQL implements UserDAO {
 			}else {
 				sql = "insert into userstable (username, pword, fullname, type) values('?','?','?','?')";
 				ps.close();
-				ps = conn.prepareStatement(sql);
+				ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 				ps.setString(1, user.getUsername ());
 				ps.setString(2, user.getPassword());
 				ps.setString(3, user.getFullName());
@@ -171,7 +169,7 @@ public class UserPLSQL implements UserDAO {
 		try {
 			Connection conn = DriverManager.getConnection(url, username, password);
 			String sql = "delete from userstable where username = '?'";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			ps.setString(1, user.getUsername());
 			ps.execute();
 			ps.close();

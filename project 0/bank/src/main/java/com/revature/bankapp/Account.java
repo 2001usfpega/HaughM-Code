@@ -1,5 +1,6 @@
 package com.revature.bankapp;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 public class Account implements java.io.Serializable {
@@ -18,6 +19,13 @@ public class Account implements java.io.Serializable {
 		this.accountNumber = accountnumber;
 		this.balance = openingbalance;
 		for (String s : users.split(":")) {
+			this.users.add(s);
+		}
+	}
+	Account(double openingbalance, int accountnumber, Collection<String> users) {
+		this.accountNumber = accountnumber;
+		this.balance = openingbalance;
+		for (String s: users) {
 			this.users.add(s);
 		}
 	}

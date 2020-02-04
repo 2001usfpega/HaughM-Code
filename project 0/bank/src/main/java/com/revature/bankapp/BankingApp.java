@@ -54,171 +54,7 @@ public class BankingApp {
 					passWord = bankScan.next();
 
 					if(dataBase.checkLoggin(userName, passWord)) {
-						try {
-							currentUser = dataBase.getUser(userName);
-						} catch (MappingNotFound e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						System.out.println("Hello there, " + userName + ". How can I help you today?");
-						System.out.println("1. Balance" + "\n2. Withdraw" + "\n3. deposit" + "\n4. Transfer" + "\n5. Add another user for joint account" + "\nInput 0 to exit.");
-						dataBase.printAccounts();
-						userInput = bankScan.next();
-						balance = 500.45;
-						savings = 1375.89;
-
-
-						boolean oneStep = true;
-						boolean userMenu = false;
-						while(!userMenu) {
-							if(!oneStep) {
-								System.out.println("1. Balance" + "\n2. Withdraw" + "\n3. deposit" + "\n4. Transfer" + "\n5. Add another user for joint account" + "\nInput 0 to exit.");
-								userInput = bankScan.next();
-							}
-
-							switch(userInput) {
-
-							case "1":
-							case "1.":
-							case "Balance":
-							case "balance":
-								System.out.println("You have $" + balance + " in your checking." + "\nYou have $" + savings + " in your savings.");
-								System.out.println("Would you like to continue?" + "\nYes or No");
-								userInput = bankScan.next();
-								if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
-									userMenu = false;
-									oneStep = false;
-								}
-								else if (userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
-									System.out.println("Have a good day!");
-									userMenu = true;
-									quit = true;
-								}
-
-								break;
-							case "2":
-							case "2.":
-							case "Withdraw":
-							case "withdraw":
-								System.out.println("You currently have $" + balance + " in your checking.");
-								System.out.println("How much would you like to withdraw?");
-								withdraw = bankScan.nextDouble();
-
-								if(withdraw <= 700.00) {
-									System.out.println("You now have $" + (balance - withdraw));
-								} else if(withdraw > 700.00) {
-									System.out.println("You do not have enough to withdraw.");
-
-								}
-								System.out.println("Would you like to continue?" + "\nYes or No");
-								userInput = bankScan.next();
-								if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
-									userMenu = false;
-									oneStep = false;
-								}
-								else if (userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
-									System.out.println("Have a good day!");
-									userMenu = true;
-									quit = true;
-								}
-								//dataBase.withdraw(user, ihatemylife, Lol);
-								//userMenu = true;
-								break;
-							case "3":
-							case "3.":
-							case "deposit":
-							case "Deposit":
-								System.out.println("You currently have $" + balance + " in your checking.");
-								System.out.println("How much would you like to deposit?");
-								deposit = bankScan.nextDouble();
-
-								System.out.println("You have deposited $" + deposit + "into your account." + "\nYou now have $" + (deposit + balance));
-								System.out.println("Would you like to continue?" + "\nYes or No");
-								userInput = bankScan.next();
-								if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
-									userMenu = false;
-									oneStep = false;
-								}
-								else if (userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
-									System.out.println("Have a good day!");
-									userMenu = true;
-									quit = true;
-								}
-								break;
-							case "4":
-							case "4.":
-							case "Transfer":
-							case "transfer":
-								System.out.println("You have $" + balance + " in your checking." + "\nYou have $" + savings + " in your savings.");
-								System.out.println("Would you like to transfer to Savings or Checking?");
-								userInput = bankScan.next();
-								if(userInput.equals("Checking") || userInput.equals("checking")) {
-									System.out.println("How much would you like to transfer from savings?");
-									tempDou = bankScan.nextDouble();
-									if(tempDou <= savings) {
-										System.out.println("You have transfered $" + tempDou + " from savings." + "\nYou now have $" + (savings - tempDou) + " in savings.");
-										System.out.println("You now have $" + (balance + tempDou) + " in your checking.");
-									}else {
-										System.out.println("You do not have enough in savings for this transfer.");
-									}
-
-
-								} else if(userInput.equals("Savings") || userInput.equals("savings")) {
-									System.out.println("How much would you like to transfer from checking?");
-									tempDou = bankScan.nextDouble();
-									if(tempDou <= balance) {
-										System.out.println("You have transfered $" + tempDou + " from checking." + "\nYou now have $" + (balance - tempDou) + " in checking.");
-										System.out.println("You now have $" + (savings + tempDou) + " in your savings.");
-									}else {
-										System.out.println("You do not have enough in checking for this transfer.");
-									}
-
-								}
-								System.out.println("Would you like to continue?" + "\nYes or No");
-								userInput = bankScan.next();
-								if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
-									userMenu = false;
-									oneStep = false;
-								}
-								else if (userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
-									System.out.println("Have a good day!");
-									userMenu = true;
-									quit = true;
-								}
-								break;
-							case "5":
-							case "5.":
-							case "Add":
-							case "add":
-								//Would Add even work without account?
-								System.out.println("Would you like to continue?" + "\nYes or No");
-								userInput = bankScan.next();
-								if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
-									userMenu = false;
-									oneStep = false;
-								}
-								else if (userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
-									System.out.println("Have a good day!");
-									userMenu = true;
-									quit = true;
-								}
-								break;
-							case "0":
-
-				                quit = true;
-				                System.out.println("Goodbye!");
-				                System.exit(0);
-								break;
-							default:
-								System.out.println("I'm sorry, that is not a valid input. Please try again.");
-
-
-						}
-
-
-
-
-						}
+						usersIO(currentUser, bankScan);
 
 					}else {
 						System.out.println("I'm sorry, the username/password is incorrect.");
@@ -239,85 +75,7 @@ public class BankingApp {
 
 					if(dataBase.checkLoggin(userName, passWord) == true) {
 						System.out.println("Hello there, " + userName + ". How can I help you today?");
-						System.out.println("1. Account" + "\n2. Balances" + "\n3. Personal" +  "\nInput 0 to exit.");
-						dataBase.printAccounts();
-						userInput = bankScan.next();
-						boolean oneStep = true;
-						boolean userMenu = false;
-						while(!userMenu) {
-							if(!oneStep) {
-								System.out.println("1. Account" + "\n2. Balances" + "\n3. Personal" +  "\nInput 0 to exit.");
-								userInput = bankScan.next();
-							}
-							switch(userInput) {
-							case "1":
-							case "1.":
-							case "Account":
-							case "account":
-								System.out.println("This is where the accounts will go for Employee");
-								System.out.println("Would you like to continue?" + "\nYes or No");
-								userInput = bankScan.next();
-								if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
-									userMenu = false;
-									oneStep = false;
-								}
-								else if (userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
-									System.out.println("Have a good day!");
-									userMenu = true;
-									quit = true;
-									System.exit(0);
-								}
-								break;
-							case "2":
-							case "2.":
-							case "Balances":
-							case "balances":
-							case "balance":
-							case "Balance":
-								System.out.println("This is where the Balances go.");
-								System.out.println("Would you like to continue?" + "\nYes or No");
-								userInput = bankScan.next();
-								if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
-									userMenu = false;
-									oneStep = false;
-								}
-								else if (userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
-									System.out.println("Have a good day!");
-									userMenu = true;
-									quit = true;
-									System.exit(0);
-								}
-								break;
-							case "3":
-							case "3.":
-							case "Personal":
-							case "personal":
-								System.out.println("This is where the Personal go.");
-								System.out.println("Would you like to continue?" + "\nYes or No");
-								userInput = bankScan.next();
-								if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
-									userMenu = false;
-									oneStep = false;
-								}
-								else if (userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
-									System.out.println("Have a good day!");
-									userMenu = true;
-									quit = true;
-									System.exit(0);
-								}
-								break;
-							case "0":
-
-				                quit = true;
-				                System.out.println("Goodbye!");
-				                System.exit(0);
-								break;
-							default:
-								System.out.println("I'm sorry, that is not a valid input. Please try again.");
-
-
-							}
-						}
+						employeesAccountLookups(currentUser, bankScan);
 
 				}else {
 					System.out.println("I'm sorry, the username/password is incorrect.");
@@ -334,147 +92,16 @@ public class BankingApp {
 
 				if(dataBase.checkLoggin(userName, passWord) == true) {
 					System.out.println("Hello there, " + userName + ". How can I help you today?");
-					System.out.println("1. Approve" + "\n2. Functions" + "\n3. Canceling" +  "\nInput 0 to exit.");
-					dataBase.printAccounts();
-					userInput = bankScan.next();
-					boolean oneStep = true;
-					boolean userMenu = false;
-					while(!userMenu) {
-						if(!oneStep) {
-							System.out.println("1. Approve" + "\n2. Functions" + "\n3. Users" +  "\nInput 0 to exit.");
-							userInput = bankScan.next();
-						}
-						switch(userInput) {
-						case "1":
-						case "1.":
-						case "Approve":
-						case "approve":
-							System.out.println("Please type the account number, user name, and opening balence");
-							do{int accnumber = bankScan.nextInt();
-							System.out.println();
-							String holder = bankScan.next();
-							System.out.println();
-							double balence = bankScan.nextDouble();
-							System.out.println();
-							System.out.println(dataBase.makeAccount(balence, accnumber, holder));
-							}while(false);
-							System.out.println("Would you like to continue?" + "\nYes or No");
-							userInput = bankScan.next();
-							if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
-								userMenu = false;
-								oneStep = false;
-							}
-							else if (userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
-								System.out.println("Have a good day!");
-								userMenu = true;
-								quit = true;
-								System.exit(0);
-							}
-							break;
-						case "2":
-						case "2.":
-						case "Functions":
-						case "functions":
-						case "Function":
-						case "function":
-							dataBase.printAccounts();
-							System.out.println("1. Withdaw" + "\n2. deposit" + "\n3. Transfer" +  "\nInput 0 to exit.");
-							userInput = bankScan.next();
-							switch(userInput) {
-							case "1":
-							case "1.":
-							case "Withdraw":
-							case "withdraw":
-								do{
-									System.out.println("Please type the account number and amount");
-									String accnumber = bankScan.next();
-									System.out.println();
-									String amount= bankScan.next();
-									System.out.println();
-									dataBase.withdraw(currentUser, accnumber, amount);
-								}while(false);
-								break;
-							case "2":
-							case "2.":
-							case "deposit":
-							case "Deposit":
-								do{
-									System.out.println("Please type the account number and amount");
-									String accnumber = bankScan.next();
-									System.out.println();
-									String amount= bankScan.next();
-									System.out.println();
-									dataBase.deposit(currentUser, accnumber, amount);
-								}while(false);
-							case "3":
-							case "3.":
-							case "Transfer":
-							case "transfer":
-								do{
-									System.out.println("Please type the account number to withdraw, then to deposit, and amount");
-									String accnumber = bankScan.next();
-									System.out.println();
-									String acctgt = bankScan.next();
-									System.out.println();
-									String amount= bankScan.next();
-									System.out.println();
-									dataBase.transfer(currentUser, accnumber, acctgt, amount);
-								}while(false);
-								break;
-							default:
-								}
-							System.out.println("Would you like to continue?" + "\nYes or No");
-							userInput = bankScan.next();
-							if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
-								userMenu = false;
-								oneStep = false;
-							}
-							else if (userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
-								System.out.println("Have a good day!");
-								userMenu = true;
-								quit = true;
-								System.exit(0);
-							}
-							break;
-						case "3":
-						case "3.":
-						case "Users":
-						case "users":
-							System.out.println("This is where the Personal go.");
-							System.out.println("Would you like to continue?" + "\nYes or No");
-							userInput = bankScan.next();
-							if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
-								userMenu = false;
-								oneStep = false;
-							}
-							else if (userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
-								System.out.println("Have a good day!");
-								userMenu = true;
-								quit = true;
-								System.exit(0);
-							}
-							break;
-						case "0":
-
-			                quit = true;
-			                System.out.println("Goodbye!");
-			                System.exit(0);
-							break;
-						default:
-							System.out.println("I'm sorry, that is not a valid input. Please try again.");
-
-
-						}
+						adminActions(currentUser, bankScan);
 					}
 
 			}else {
 				System.out.println("I'm sorry, the username/password is incorrect.");
 			}
 
-			}
 
 
-			}	else if(userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
+			} else if(userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
 				System.out.println("Welcome new user! Would you like to setup a account?");
 				whileStop = true;
 				System.out.println("Yes or No");
@@ -519,7 +146,6 @@ public class BankingApp {
 		 */
 
 		 //bankScan.close();
-	}
 
 	// Sysout "NAME"
 	// Scanner.nextinput
@@ -531,7 +157,7 @@ public class BankingApp {
 	// WriteFIle
 	// Method
 	//
-
+	}
 	}while (!quit);
 	bankScan.close();	
 	}
@@ -558,6 +184,26 @@ public class BankingApp {
 		case "deposit":
 		case "3.deposit":
 			depositIO(currentUser, bankScan);
+			break;
+		default:
+		}
+	}
+	private static void usersIO(User currentUser, Scanner bankScan) {
+		System.out.println("Please Select: \n1.tansact\n2.lookup");
+		String choice = bankScan.next().toLowerCase();
+		System.out.println();
+		switch(choice){
+		case "1.":
+		case "1":
+		case "tansact":
+		case "1.tansact":
+			accountActionsMenue(currentUser, bankScan);
+			break;
+		case "2.":
+		case "2":
+		case "lookup":
+		case "2.lookup":
+			usersAccountLookups(currentUser, bankScan);
 			break;
 		default:
 		}
@@ -607,81 +253,131 @@ public class BankingApp {
 			break;
 		}
 	}
+	
 	private static void adminActions(User currentUser, Scanner bankScan){
-		System.out.println("Please Select: \n1.Account\n2.Users\n3.Requests");
+		System.out.println("Please Select: \n1.Info\n2.New\n3.alter");
 		String choice = bankScan.next().toLowerCase(); //makes exact matches easier
 		System.out.println();
 		switch(choice){
 		case "1.":
 		case "1":
-		case "number":
-		case "1.number":
-			printAccountInfoIO(currentUser, bankScan);//menu for account actions
+		case "info":
+		case "1.info":
+			employeesAccountLookups(currentUser, bankScan);
 			break;
 		case "2.":
 		case "2":
-		case "users":
-		case "2.users":
-			printAccountsForUserIO(currentUser, bankScan);
+		case "new":
+		case "2.new":
+			make(currentUser, bankScan);
 			break;
 		case "3.":
 		case "3":
-		case "3.all":
-		case "all":
-			printAllAccountsIO();
+		case "3.transactions":
+		case "transactions":
+			alter(currentUser, bankScan);
 			break;
 		}
 	}
-	private static void adminAccountActions(User currentUser, Scanner bankScan){
-		System.out.println("Please Select: \n1.Info\n2.Modify\n3.Transactions");
+
+	private static void alter(User currentUser, Scanner bankScan){
+		System.out.println("Please Select: \n1.user\n2.account");
 		String choice = bankScan.next().toLowerCase(); //makes exact matches easier
 		System.out.println();
 		switch(choice){
 		case "1.":
 		case "1":
-		case "number":
-		case "1.number":
-			printAccountInfoIO(currentUser, bankScan);//menu for account actions
+		case "user":
+		case "1.user":
+			alterUser(currentUser, bankScan);
 			break;
 		case "2.":
 		case "2":
-		case "users":
-		case "2.users":
-			printAccountsForUserIO(currentUser, bankScan);
+		case "account":
+		case "2.account":
+			 alterAccount(currentUser, bankScan);
+			break;
+			}
+		}
+	private static void alterAccount(User currentUser, Scanner bankScan){
+		System.out.println("Please Select: \n1.add\2.remove\n3.transact");
+		String choice = bankScan.next().toLowerCase(); //makes exact matches easier
+		System.out.println();
+		switch(choice){
+		case "1.":
+		case "1":
+		case "user":
+		case "1.user":
+			addUsertoAccountIO(currentUser, bankScan);
+			break;
+		case "2.":
+		case "2":
+		case "remove":
+		case "2.remove":
+			 removeUserFromAccountIO(currentUser, bankScan);
 			break;
 		case "3.":
 		case "3":
-		case "3.all":
-		case "all":
-			printAllAccountsIO();
+		case "transact":
+		case "3.transact":
+			accountActionsMenue(currentUser, bankScan);
+			break;
+			}
+		}
+	private static void alterUser(User currentUser, Scanner bankScan){
+		System.out.println("please type the username");
+		String targetUser = bankScan.next();
+		User trgt;
+		try {
+			trgt = Databases.getDatabases().getUser(targetUser);
+		} catch (MappingNotFound e) {
+			return;
+		}
+		System.out.println("please choose username, password, fullname");
+		String swch= bankScan.next();
+		System.out.println("please type the value");
+		String set = bankScan.next();
+		switch(swch.toLowerCase()){
+		case "username":
+			trgt.setUsername(set);
+			break;
+		case "password":
+			trgt.setPassword(set);
+			break;
+		case "fullname":
+			trgt.setFullName(set);
 			break;
 		}
+		Databases.getDatabases().writeFiles();
 	}
-	private static void adminUserActions(User currentUser, Scanner bankScan){
-		System.out.println("Please Select: \n1.Create\n2.Info");
+	
+	private static void make(User currentUser, Scanner bankScan){
+		System.out.println("Please Select: \n1.user\n2.account");
 		String choice = bankScan.next().toLowerCase(); //makes exact matches easier
 		System.out.println();
 		switch(choice){
 		case "1.":
 		case "1":
-		case "number":
-		case "1.number":
-			makeUser(currentUser, bankScan);//menu for account actions
+		case "user":
+		case "1.user":
+			makeUser(currentUser, bankScan);
 			break;
 		case "2.":
 		case "2":
-		case "users":
-		case "2.users":
-			Databases.getDatabases().printUsers();
+		case "account":
+		case "2.account":
+			makeAccountIO(currentUser, bankScan);
 			break;
 		}
 	}
 	
+	
 	private static void addUsertoAccountIO(User currentUser, Scanner bankScan){
 		System.out.println("please type the user to add");
-		String accnumber = bankScan.next();
+		String toadd = bankScan.next();
 		System.out.println("\n Please type target account:");
 		String acctgt = bankScan.next();
+		Databases.getDatabases().addUserToAccount(currentUser, toadd, acctgt);
 	}
 	
 	private static void depositIO(User currentUser, Scanner bankScan){//reuses the scanner to minimize initialization lag
@@ -691,9 +387,6 @@ public class BankingApp {
 		String amount= bankScan.next();
 		System.out.println();
 		Databases.getDatabases().deposit(currentUser, accnumber, amount);  //no need to store a database reference in the local scope
-	}
-	private static void getRequests(User currentUser, Scanner bankScan){
-		//to do
 	}
 	private static void makeAccountIO(User currentUser, Scanner bankScan){
 		System.out.println("Please type the account number:");
@@ -754,9 +447,6 @@ public class BankingApp {
 		String targetUser = bankScan.next();
 		System.out.println();
 		Databases.getDatabases().removeUserFromAccount(currentUser, targetUser, accnumber);
-	}
-	private static void requestAccountAction(User currentUser, Scanner bankScan){//generic ticket system
-		//to do
 	}
 	
 	private static void transferIO(User currentUser, Scanner bankScan) {

@@ -62,4 +62,8 @@ abstract public class User implements Serializable {
 	public String getType() {
 		return "user";
 	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 }
