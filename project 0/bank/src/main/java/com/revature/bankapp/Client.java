@@ -10,6 +10,10 @@ public class Client extends User {
 	Client(String username, String password, String fullName) {
 		super(username, password, fullName);
 	}
+	
+	Client(String username, String password, String fullName, int id) {
+		super(username, password, fullName, id);
+	}
 	public String toString() {
 		return  "Client:" + getUsername() + ':' + getFullName();
 	}

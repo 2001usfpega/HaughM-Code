@@ -7,6 +7,9 @@ public class SuperUser extends Employee {
 	public SuperUser(String username, String password, String fullName) {
 		super(username, password, fullName);
 	}
+	public SuperUser(String username, String password, String fullName, int id) {
+		super(username, password, fullName, id);
+	}
 	public String toString() {
 		return  "Admin:" + getUsername() + ':' + getFullName();
 	}

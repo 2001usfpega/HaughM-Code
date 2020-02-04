@@ -9,6 +9,9 @@ public class Employee extends User {
 	Employee(String username, String password, String fullName) {
 		super(username, password, fullName);
 	}
+	public Employee(String username, String password, String fullName, int id) {
+		super(username, password, fullName, id);
+	}
 	public String toString() {
 		return  "Employee:" + getUsername() + ':' + getFullName();
 	}

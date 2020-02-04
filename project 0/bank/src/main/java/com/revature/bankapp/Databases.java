@@ -30,44 +30,22 @@ public class Databases {
 
 	// write method
 	public void writeFiles() {
-		ObjectOutputStream objectOut;
-		try {
-			objectOut = new ObjectOutputStream(new FileOutputStream(AccountFile));
-			objectOut.writeObject(Accountlist);
-			objectOut.close();
-			objectOut = new ObjectOutputStream(new FileOutputStream(UserFile));
-			objectOut.writeObject(Userlist);
-			objectOut.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		for(User u: Userlist.values()){
+			UserPLSQL.getSQL().updateUser(u);
+		}
+		for(Account a: Accountlist.values()){
+			AccountPLSQL.getSQL().updateAccount(a);
 		}
 	}
 
 	// Read methods
 	public void readFiles() {
-		ObjectInputStream objectIn;
+		for(User u: UserPLSQL.getSQL().findAll()){
+			Userlist.put(u.getUsername(), u);
+		}
 
-		try {
-			objectIn = new ObjectInputStream(new FileInputStream(AccountFile));
-			// Accountlist= (ArrayList<Account>)objectIn.readObject();
-			Accountlist = (HashMap<Integer, Account>) objectIn.readObject();
-			objectIn.close();
-			objectIn = new ObjectInputStream(new FileInputStream(UserFile));
-			Userlist = (HashMap<String, User>) objectIn.readObject();
-			objectIn.close();
-		} catch (FileNotFoundException e) {
-			makeEmployee("Avocque", "icantreadcode", "Amanda Vocque");
-			makeSU("MHaugh", "C0d3r", "Michael Haugh");
-			makeClient("2hands", "Pickle", "Two-hands McGee");
-			writeFiles();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for(Account a: AccountPLSQL.getSQL().findAll()){
+			Accountlist.put(a.getAccountNumber(), a);
 		}
 	}
 

@@ -40,13 +40,13 @@ public class UserPLSQL implements UserDAO {
 			rs.next();
 			switch(rs.getString("usertype")){
 			case "admin":
-				out.add(new SuperUser(rs.getString("username"), rs.getString("pword"), rs.getString("fullName")));
+				out.add(new SuperUser(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"),rs.getInt("user_id")));
 			break;
 			case "customer":
-				out.add(new Client(rs.getString("username"), rs.getString("pword"), rs.getString("fullName")));
+				out.add(new Client(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"),rs.getInt("user_id")));
 			break;
 			case "employee":
-				out.add(new Employee(rs.getString("username"), rs.getString("pword"), rs.getString("fullName")));
+				out.add(new Employee(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"),rs.getInt("user_id")));
 			break;
 			}
 			
@@ -58,7 +58,7 @@ public class UserPLSQL implements UserDAO {
 	}
 
 	@Override
-	public List<User> findById(int ... id) { //takes the ID of a user(a synthetic key not represented in the current application) should return a list with a single user object, multiple returned objects indicate failure
+	public List<User> findById(int ... id) { //takes the ID of a user(a synthetic key) should return a list with a single user object, multiple returned objects indicate failure
 		List<User> out = new ArrayList<User>();
 		try {
 		Connection conn = DriverManager.getConnection(url, username, password);
@@ -72,13 +72,13 @@ public class UserPLSQL implements UserDAO {
 				rs.next();
 				switch(rs.getString("usertype")){
 				case "admin":
-					out.add(new SuperUser(rs.getString("username"), rs.getString("pword"), rs.getString("fullName")));
+					out.add(new SuperUser(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"), rs.getInt("user_id")));
 				break;
 				case "customer":
-					out.add(new Client(rs.getString("username"), rs.getString("pword"), rs.getString("fullName")));
+					out.add(new Client(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"), rs.getInt("user_id")));
 				break;
 				case "employee":
-					out.add(new Employee(rs.getString("username"), rs.getString("pword"), rs.getString("fullName")));
+					out.add(new Employee(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"), rs.getInt("user_id")));
 				break;
 					}
 				}while(!rs.isLast());
@@ -105,13 +105,13 @@ public class UserPLSQL implements UserDAO {
 				rs.next();
 				switch(rs.getString("usertype")){
 				case "admin":
-					out.add(new SuperUser(rs.getString("username"), rs.getString("pword"), rs.getString("fullName")));
+					out.add(new SuperUser(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"), rs.getInt("user_id")));
 				break;
 				case "customer":
-					out.add(new Client(rs.getString("username"), rs.getString("pword"), rs.getString("fullName")));
+					out.add(new Client(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"), rs.getInt("user_id")));
 				break;
 				case "employee":
-					out.add(new Employee(rs.getString("username"), rs.getString("pword"), rs.getString("fullName")));
+					out.add(new Employee(rs.getString("username"), rs.getString("pword"), rs.getString("fullName"), rs.getInt("user_id")));
 				break;
 					}
 				}while(!rs.isLast());
