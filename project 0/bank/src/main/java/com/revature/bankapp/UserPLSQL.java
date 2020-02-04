@@ -122,22 +122,22 @@ public class UserPLSQL implements UserDAO {
 	}
 
 	@Override
-	public boolean insertUser(String username,String password, String fullname, String Type) {
+	public boolean insertUser(String uname,String pword, String fullname, String type) {
 		try {
 			Connection conn = DriverManager.getConnection(url, username, password);
-			String sql = "insert into userstable (username, pword, fullname, type) values('?','?','?','?')";
+			String sql = "insert into userstable (username, pword, fullname, usertype) values(?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			ps.setString(1, username);
-			ps.setString(2, password);
+			ps.setString(1, uname);
+			ps.setString(2, pword);
 			ps.setString(3, fullname);
-			ps.setString(4, Type);
+			ps.setString(4, type);
 			ps.execute();
-		
 			ps.close();
 			conn.commit();
 			conn.close();
 			return true;
 			} catch (SQLException e) {
+				e.printStackTrace();
 				// TODO Auto-generated catch block
 				return false;
 			}

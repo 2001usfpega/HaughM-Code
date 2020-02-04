@@ -27,15 +27,15 @@ public class BankingApp {
 		 boolean whileStop = false;
 		 dataBase.readFiles();
 
-
+		 do {
 		System.out.println("Welcome to Rob-U Bank!");
 		System.out.println("Are you a returning user?");
 		System.out.println(" Yes or No ");
 		userInput = bankScan.next();
 
 		//Start of Do
-		do {
-		while (!whileStop) {
+		
+		
 			if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
 				System.out.println("Welcome back! How are you signing in today?");
 				whileStop = true;
@@ -55,7 +55,7 @@ public class BankingApp {
 
 					if(dataBase.checkLoggin(userName, passWord)) {
 						usersIO(currentUser, bankScan);
-
+						
 					}else {
 						System.out.println("I'm sorry, the username/password is incorrect.");
 					}
@@ -124,7 +124,6 @@ public class BankingApp {
 				else {
 					System.out.println("Alright, thanks for visiting!");
 					quit = true;
-					System.exit(0);
 
 				}
 			}else {
@@ -157,7 +156,7 @@ public class BankingApp {
 	// WriteFIle
 	// Method
 	//
-	}
+	
 	}while (!quit);
 	bankScan.close();	
 	}
