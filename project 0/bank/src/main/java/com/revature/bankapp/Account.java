@@ -73,8 +73,8 @@ public class Account implements java.io.Serializable {
 	boolean checkUser(String user) {
 		return users.contains(user);
 	}
-	User[] getUsers() {
-		User[] out = null;
+	String[] getUsers() {
+		String[] out = new String[users.size()];
 		return users.toArray(out);
 	}
 	boolean addUser(String user) { // attempts to add a user, returns true if successful and false if the user is

@@ -133,7 +133,6 @@ public class UserPLSQL implements UserDAO {
 			ps.setString(4, type);
 			ps.execute();
 			ps.close();
-			conn.commit();
 			conn.close();
 			return true;
 			} catch (SQLException e) {

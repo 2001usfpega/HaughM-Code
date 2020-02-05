@@ -27,7 +27,7 @@ public class BankingApp {
 		 dataBase.readFiles();
 
 		 do {
-		System.out.println("Welcome to Rob-U Bank!");
+		System.out.println("Welcome to Bank!");
 		System.out.println("Are you a returning user?");
 		System.out.println(" Yes or No ");
 		userInput = bankScan.next();
@@ -52,6 +52,12 @@ public class BankingApp {
 					passWord = bankScan.next();
 
 					if(dataBase.checkLoggin(userName, passWord)) {
+						try {
+							currentUser = dataBase.getUser(userName);
+						} catch (MappingNotFound e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						usersIO(currentUser, bankScan);
 						
 					}else {
@@ -72,7 +78,14 @@ public class BankingApp {
 					passWord = bankScan.next();
 
 					if(dataBase.checkLoggin(userName, passWord) == true) {
+						try {
+							currentUser = dataBase.getUser(userName);
+						} catch (MappingNotFound e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						System.out.println("Hello there, " + userName + ". How can I help you today?");
+						
 						employeesAccountLookups(currentUser, bankScan);
 
 				}else {
@@ -89,6 +102,12 @@ public class BankingApp {
 				passWord = bankScan.next();
 
 				if(dataBase.checkLoggin(userName, passWord) == true) {
+					try {
+						currentUser = dataBase.getUser(userName);
+					} catch (MappingNotFound e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					System.out.println("Hello there, " + userName + ". How can I help you today?");
 						adminActions(currentUser, bankScan);
 					}
@@ -400,6 +419,7 @@ public class BankingApp {
 		String fName= bankScan.next();
 		System.out.println("\n Please input user type as Admin, Employee, or Client");
 		String swtch = bankScan.next();
+		swtch = bankScan.next();
 		switch(swtch){
 		case "Admin":
 		case "admin":

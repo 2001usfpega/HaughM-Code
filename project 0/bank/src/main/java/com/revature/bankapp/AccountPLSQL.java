@@ -36,13 +36,14 @@ public class AccountPLSQL implements AccountDAO {
 			ps.execute();
 			ResultSet rs =  ps.getResultSet();
 			while(rs.next()){
-				sql = "Select username from [accountlookup] where AccountId = ?";
+				sql = "Select username from accountlookup where AccountId = ?";
 				PreparedStatement ps2 = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 				ps2.setInt(1, rs.getInt("AccountID"));
+				ps2.execute();
 				ResultSet rs2 = ps2.getResultSet();
 				Collection<String> temp = new ArrayList<String>();
 				while(rs2.next()){
-					temp.add(rs.getString("username"));
+					temp.add(rs2.getString("USERNAME"));
 				}
 				out.add(new Account(rs.getDouble("balence"),rs.getInt("AccountId"), temp));
 				rs2.close();
@@ -131,16 +132,17 @@ public class AccountPLSQL implements AccountDAO {
 		ps.setInt(2, account.getAccountNumber());
 		ps.execute();
 		ps.close();
-		sql = "select * from [accountlookup] where AccountId = ?";
+		sql = "select * from accountlookup where AccountId = ?";
 		
 		ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ps.setInt(1, account.getAccountNumber());
-		for(User u: account.getUsers()) {
+		for(String s: account.getUsers()) {
+			User u = Databases.getDatabases().getUser(s);
 			ResultSet rs = ps.executeQuery();
 			boolean found = false;
 			if(rs.first()){
 				do{
-					if(rs.getString("username").equals(u.getUsername())) {
+					if(rs.getString("username").equals(s)) {
 						found=true;
 					}
 					rs.next();
@@ -148,7 +150,7 @@ public class AccountPLSQL implements AccountDAO {
 			}
 			rs.close();
 			if(!found){
-				String sql2 = "insert into accountowership(u_id_FK, a_id_FK) values(?,?)";
+				String sql2 = "insert into accountownership(u_id_FK, a_id_FK) values(?,?)";
 				PreparedStatement ps2 = conn.prepareStatement(sql2);
 				ps2.setInt(1, u.getUserID());
 				ps2.setInt(2, account.getAccountNumber());
@@ -160,6 +162,9 @@ public class AccountPLSQL implements AccountDAO {
 		
 		conn.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (MappingNotFound e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -184,7 +189,7 @@ public class AccountPLSQL implements AccountDAO {
 	@Override
 	public List<Account> findByName(String name) {
 		List<Account> out = new ArrayList<Account>();
-		String sql = "select * from [accountlookup] where username = ?";
+		String sql = "select * from accountlookup where username = ?";
 		try{
 			Connection conn = DriverManager.getConnection(url, username, password);
 			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
