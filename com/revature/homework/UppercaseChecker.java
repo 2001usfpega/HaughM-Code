@@ -1,9 +1,9 @@
 package com.revature.homework;
 
-import java.util.regex.Pattern;
-
 public class UppercaseChecker extends CaseModifier {
 
+	@Override
+	@Override
 	@Override
 	public boolean hasCase(String input) {
 		for(char c: input.toCharArray()){
@@ -15,10 +15,14 @@ public class UppercaseChecker extends CaseModifier {
 	}
 
 	@Override
+	@Override
+	@Override
 	public String changeToCase(String input) {
 		return input.toUpperCase();
 	}
 
+	@Override
+	@Override
 	@Override
 	public int toIntAndModify(String input) {
 		int output = 10;

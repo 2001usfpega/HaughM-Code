@@ -62,7 +62,7 @@ public class AccountPLSQL implements AccountDAO {
 		List<Account> out = new ArrayList<Account>();
 		try{
 			Connection conn = DriverManager.getConnection(url, username, password);
-			String sql = "Select username from [accountlookup] where AccountId = ?";
+			String sql = "Select username from accountlookup where AccountId = ?";
 			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			ps.setInt(1, id);
 			ps.execute();
@@ -90,32 +90,31 @@ public class AccountPLSQL implements AccountDAO {
 	}
 
 	@Override
-	public boolean insertAccount(Account account) { //takes a localy made account and attempts to insert it into the remote DB
+	public boolean insertAccount(double openingvalue, String user) { //takes a localy made account and attempts to insert it into the remote DB
 		try{
 			Connection conn = DriverManager.getConnection(url, username, password);
-			String sql = "select  a_id_sequence.nextval from dual"; //custom Account numbers are striped for consitency
+			conn.setAutoCommit(false);
+			String sql = "select a_id_sequence.nextval as next from dual"; //custom Account numbers are striped for consitency
 			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			ResultSet rs = ps.executeQuery();
 			rs.first();
-			account.setAcountNumber(rs.getInt(1));
+			int accountID = rs.getInt("next");
 			rs.close();
 			ps.close();
 			sql = "Insert into accounts values(?,?) ";
 			ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			ps.setInt(1, account.getAccountNumber());
-			ps.setDouble(2, account.getBalance());
-			if(ps.execute()) {
-				ps.close();
-				sql = "Insert into accountownership(a_id_fk,u_id_fk) values(?,?)";
-				for(User u: account.getUsers()) {
-					ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-					ps.setInt(1, account.getAccountNumber());
-					ps.setInt(2, u.getUserID());
-					ps.execute();
-					ps.close();
-				}
-			}
-			
+			ps.setInt(1, accountID);
+			ps.setDouble(2, openingvalue);
+			ps.execute();
+			ps.close();
+			sql = "Insert into accountownership(a_id_fk,u_id_fk) values(?,?)";	
+			ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			ps.setInt(1, accountID);
+			ps.setInt(2, UserPLSQL.getSQL().findByName(user).get(0).getUserID());
+			ps.execute();
+			ps.close();
+			conn.close();
+			return true;
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -158,6 +157,7 @@ public class AccountPLSQL implements AccountDAO {
 			}
 		}
 		ps.close();
+		
 		conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -172,7 +172,9 @@ public class AccountPLSQL implements AccountDAO {
 		String sql = "delete from accounts where Accountid = ?";
 		PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		ps.setInt(1, account.getAccountNumber());
-		return ps.execute();
+		boolean out = ps.execute();
+		
+		return out;
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -182,7 +184,7 @@ public class AccountPLSQL implements AccountDAO {
 	@Override
 	public List<Account> findByName(String name) {
 		List<Account> out = new ArrayList<Account>();
-		String sql = "select * from [accountlookup] where username = '?'";
+		String sql = "select * from [accountlookup] where username = ?";
 		try{
 			Connection conn = DriverManager.getConnection(url, username, password);
 			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);

@@ -24,7 +24,6 @@ public class BankingApp {
 
 		 String userInput;
 		 boolean quit = false;
-		 boolean whileStop = false;
 		 dataBase.readFiles();
 
 		 do {
@@ -38,7 +37,6 @@ public class BankingApp {
 		
 			if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
 				System.out.println("Welcome back! How are you signing in today?");
-				whileStop = true;
 				System.out.println("\n1.User" + "\n2.Employee" + "\n3.Admin");
 				//userChoice = bankScan.nextInt();
 				userInput = bankScan.next();
@@ -103,7 +101,6 @@ public class BankingApp {
 
 			} else if(userInput.equals("No") || userInput.equals("no") || userInput.equals("n")) {
 				System.out.println("Welcome new user! Would you like to setup a account?");
-				whileStop = true;
 				System.out.println("Yes or No");
 				userInput = bankScan.next();
 				if(userInput.equals("Yes") || userInput.equals("yes") || userInput.equals("y")) {
@@ -388,14 +385,11 @@ public class BankingApp {
 		Databases.getDatabases().deposit(currentUser, accnumber, amount);  //no need to store a database reference in the local scope
 	}
 	private static void makeAccountIO(User currentUser, Scanner bankScan){
-		System.out.println("Please type the account number:");
-		int accnumber = bankScan.nextInt();
 		System.out.println("\n Please type user:");
 		String accountOwner = bankScan.next();
 		System.out.println("\n Please type opening balence:");
 		Double amount= bankScan.nextDouble();
-		System.out.println();
-		Databases.getDatabases().makeAccount(amount, accnumber, accountOwner);
+		System.out.println(Databases.getDatabases().makeAccount(amount, accountOwner));
 	}
 	private static void makeUser(User currentUser, Scanner bankScan){
 		System.out.println("Please type the Username.");

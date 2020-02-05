@@ -1,12 +1,5 @@
 package com.revature.homework;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
-
-import org.junit.jupiter.api.Test;
-
 class EmployeeComparisontester {
 
 	@Test

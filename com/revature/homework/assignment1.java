@@ -1,9 +1,5 @@
 package com.revature.homework;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.io.*;
-
 public class assignment1 {
 
 	public static void main(String[] args) {

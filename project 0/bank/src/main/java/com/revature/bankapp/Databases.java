@@ -4,14 +4,6 @@ import java.util.HashMap;
 
 import com.revature.bankapp.Account;
 import com.revature.bankapp.MappingNotFound;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 public class Databases {
 	private static Databases database;
 	
@@ -292,11 +284,9 @@ public class Databases {
 		}
 		return false;
 	}
-	boolean makeAccount(double openingbalance, int accountnumber, String username) {
-		if (!Accountlist.containsKey(accountnumber)) {
-			Accountlist.put(accountnumber, new Account(openingbalance, accountnumber, username));
-			System.out.println("\r\nAccount created successfully");
-			return true;
+	boolean makeAccount(double openingbalance, String username) {
+		if(Userlist.containsKey(username)) {
+				return AccountPLSQL.getSQL().insertAccount(openingbalance, username);
 		}
 		System.out.println("\r\nAccount alredy exists.");
 		return false;

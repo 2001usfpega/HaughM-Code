@@ -1,7 +1,5 @@
 package com.revature.bean;
 
-import com.revature.exceptions.IncreaseByNegativeNumberException;
-
 public class Person {
 /*Code Block- defined by {}  {Things between}
  * static code block - runs once when class is used by compiler

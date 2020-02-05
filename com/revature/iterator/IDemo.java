@@ -1,10 +1,5 @@
 package com.revature.iterator;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import java.util.ListIterator;
-
 public class IDemo {
 
 	public static void main(String[] args) {

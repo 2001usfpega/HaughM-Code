@@ -1,7 +1,6 @@
 package com.revature.driver;
 
 import com.revature.bean.Person;
-import com.revature.staticfun.FunWithStatic; //<-- Fully Qualified Class Name
 
 public class Driver {
 	//single line comment

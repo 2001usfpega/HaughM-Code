@@ -95,7 +95,7 @@ public class UserPLSQL implements UserDAO {
 		try {
 		Connection conn = DriverManager.getConnection(url, username, password);
 		for(String s: names) {
-			String sql = "Select * from userstable where username = '?'";
+			String sql = "Select * from userstable where username = ?";
 			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			ps.setString(1, s);
 			ps.execute();
@@ -147,7 +147,7 @@ public class UserPLSQL implements UserDAO {
 	public boolean updateUser(User user) {
 		try {
 			Connection conn = DriverManager.getConnection(url, username, password);
-			String sql = "Update userstable set pword='?', fullname= '?' where username = ?";
+			String sql = "Update userstable set pword=?, fullname= ? where username = ?";
 			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			ps.setString(1, user.getPassword());
 			ps.setString(2, user.getFullName());
@@ -163,7 +163,7 @@ public class UserPLSQL implements UserDAO {
 	public boolean deleteUser(User user) {
 		try {
 			Connection conn = DriverManager.getConnection(url, username, password);
-			String sql = "delete from userstable where username = '?'";
+			String sql = "delete from userstable where username = ?";
 			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			ps.setString(1, user.getUsername());
 			ps.execute();

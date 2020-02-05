@@ -1,13 +1,5 @@
 package com.revature.homework;
 
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.*;
-import java.util.ArrayList;
-
-import org.junit.jupiter.api.Test;
-
 class Homework1tester {
 	@Test
 	public void testBubbleSort() {

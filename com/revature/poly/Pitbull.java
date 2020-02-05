@@ -2,6 +2,8 @@ package com.revature.poly;
 
 public class Pitbull extends Mammal{
 	public String s = "Steak";
+	@Override
+	@Override
 	public void eat() {
 		int a = 5;  // no default value
 		System.out.println("Pitbull is eat " + super.s);

@@ -1,7 +1,5 @@
 package com.revature.homework;
 
-import java.util.ArrayList;
-
 //8
 class PalendromeSeperator {
 	private ArrayList<String> palendromes = new ArrayList<String>();
