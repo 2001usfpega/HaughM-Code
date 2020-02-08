@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Home</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+
+<link rel=stylesheet type="text/css" href="/reimbursement/resources/css/theme.css">
+<link rel=stylesheet type="text/css" href="/reimbursement/resources/css/mystyles.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="bg">
+	<div class="row centered"><div class="col"></div><div class="col-md"><a href="tables.table" type="Submit" class="btn btn-primary btn-block">Veiw expenses</a></div><div class="col"></div></div>
+	<br />
+	<div class="container">
+		<div class="row">
+		<div class="col"></div>
+			<div class="col-md-12">
+	<div class="centered panel panel-login panel-body">
+		<div class="title btn-block btn-fake padding-min " >
+			<h3>Please fill out the form below in order to submit your
+				expense ticket.</h3>
+		</div>
+		<form class="centered panel-body" id="TypeForm" method="POST" action="NewExpense.do">
+			<div class="centered dropdown">
+				<select class="btn-lg form-control" class="ui dropdown" name="type"
+					form="TypeForm">
+					<option value="" selected disabled>Expense Type</option>
+					<option value="1">Lodging</option>
+					<option value="2">Travel</option>
+					<option value="3">Food</option>
+					<option value="4">Other</option>
+				</select> <br /> <br />
+			</div>
+			<div class="centered input-group mb-3 col-md-12">
+				<div class="centered input-group-prepend col-md">
+					<span class="centered btn-primary btn-fake">Amount</span>
+				</div>
+				<div class ="centered col-md-10">
+				<input type="number" step=".01" min="10" max="500" class="form-control"
+					name="Amount" aria-label="Amount (to the nearest dollar)">
+				</div>
+			</div>
+			<br/><br/>
+			<div class="centered form-group">
+				<label class="btn-primary btn-fake" for="exampleTextarea">Description</label>
+				<textarea class="form-control" id="exampleTextarea"
+					name="Description" rows="3"></textarea>
+			</div>
+			<div class="form-group">
+				<input type="Submit" class="btn btn-primary btn-block" id="SubmitButton"
+					value="Submit">
+			</div>
+		</form>
+	</div>
+	</div>
+	</div>
+	</div>
+</div>
+
+
+
+
+</body>
+</html>
