@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Admin Home</title>
+<title>Reimbursments Tables</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -28,8 +28,8 @@
 <body>
 	<div class="bg">
 	<div class="container">
-	<div><a href="CreateExpense.do" type="Submit" class="btn btn-primary btn-block">Create Expense</a></div>
-	<div class="panel-body panel-login">
+	<div><a href="MakeExpense.do" type="Submit" class="btn btn-primary btn-block">Create Request</a></div>
+	<div class="panel-body  panel lpanel-login">
 		<div class="form-group">
 			<table border="2" class="table" id="reimbtable">
 				<tr class="btn-primary btn-fake">

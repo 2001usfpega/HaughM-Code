@@ -183,7 +183,7 @@ public class RequestPLSQLDAO implements RequestDAO {
 	public boolean update(RequestBean requestBean) {
 		try {
 			Connection conn = DriverManager.getConnection(url, username, password);
-			String sql = "Update requests (u_id_fk, request_type, ammount, date_submited , date_resolved, status, descript) values(?,?,?,?,?,?,?) where request_id=?";
+			String sql = "Update requests SET u_id_fk=?, request_type=?, ammount=?, date_submited=?, date_resolved=?, status=?, descript=? where request_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE);
 			ps.setInt(1, requestBean.getU_id_fk());

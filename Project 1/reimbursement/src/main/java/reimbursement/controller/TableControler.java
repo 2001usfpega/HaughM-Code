@@ -109,7 +109,7 @@ public class TableControler {
 			
 			SimpleDateFormat formater = new SimpleDateFormat("MMM'.' d yyyy");
 			String resolved = (cur.getDate_resolved()==null)?"N/A":formater.format(cur.getDate_submited());
-			out.append("<tr><form id=\"row"+i+"\" method=\"POST\" action=\"\"><td>"+
+			out.append("<tr><form id=\"row"+i+"\" method=\"POST\" action=\"UpdateExpense.do\"><td>"+
 			cur.getU_id_fk()+"</td><td>"+curuser.getFirstname()
 			+"</td><td>" +curuser.getLastname()+"</td><td>" 
 			+curtype+"</td><td>" +cur.getAmmount()+"</td><td>" 
@@ -124,7 +124,8 @@ public class TableControler {
 
 	public static String buildPage(HttpServletRequest req){
 		UserBean loggedin = (UserBean) req.getSession().getAttribute("currentUser");
-		return (loggedin.getUsertype()==1)?buildtableadmin(req):buildUserTable(req);
+		System.out.println(loggedin.getUname());
+		return ((loggedin.getUsertype()==1)?buildtableadmin(req):buildUserTable(req));
 		
 	}
 	
